@@ -68,7 +68,6 @@ class CurrentLocationViewController: UIViewController {
 }
 
 extension CurrentLocationViewController: CLLocationManagerDelegate {
-    // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
     }
