@@ -34,9 +34,14 @@ class CurrentLocationViewController: UIViewController {
             showLocationServicesDeniedAlert()
             return
         }
-        startLocationManager()
+        if updatingLocation {
+            stopLocationManager()
+        } else {
+            location = nil
+            lastLocationError = nil
+            startLocationManager()
+        }
         updateLabels()
-        
     }
     
     override func viewDidLoad() {
@@ -49,6 +54,14 @@ class CurrentLocationViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func configureGetButton() {
+        if updatingLocation {
+            getButton.setTitle("Stop", for: .normal)
+        } else {
+            getButton.setTitle("Get My Location", for: .normal)
+        }
     }
     
     func updateLabels() {
@@ -78,7 +91,9 @@ class CurrentLocationViewController: UIViewController {
                 statusMessage = "Tap 'Get My Location' to Start"
             }
             messageLabel.text = statusMessage
-        } 
+        }
+        
+        configureGetButton()
     }
     
     func startLocationManager() {
@@ -116,8 +131,24 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
         print("didUpdateLocations \(newLocation)")
-        location = newLocation
-        lastLocationError = nil
+        
+        if newLocation.timestamp.timeIntervalSinceNow < -5 {
+            return
+        }
+        
+        if newLocation.horizontalAccuracy < 0 {
+            return
+        }
+        
+        if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
+            location = newLocation
+            lastLocationError = nil
+        }
+        
+        if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
+            print("We're done!")
+            stopLocationManager()
+        }
         updateLabels()
     }
 }
