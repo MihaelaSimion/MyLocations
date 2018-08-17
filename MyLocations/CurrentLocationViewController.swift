@@ -175,6 +175,14 @@ class CurrentLocationViewController: UIViewController {
             updateLabels()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TagLocation" {
+            let controller = segue.destination as! LocationDetailsViewController
+            controller.coordinate = location!.coordinate
+            controller.placemark = placemark
+        }
+    }
 }
 
 extension CurrentLocationViewController: CLLocationManagerDelegate {
