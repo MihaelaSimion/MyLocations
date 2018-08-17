@@ -14,6 +14,7 @@
 		47C9FDB92122E90B001E4A81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47C9FDB82122E90B001E4A81 /* Assets.xcassets */; };
 		47C9FDBC2122E90B001E4A81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C9FDBA2122E90B001E4A81 /* LaunchScreen.storyboard */; };
 		47E16ADD2125C0C0000A64DF /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E16ADC2125C0C0000A64DF /* LocationDetailsViewController.swift */; };
+		47E16ADF2126B562000A64DF /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E16ADE2126B562000A64DF /* CategoryPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		47C9FDBB2122E90B001E4A81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47C9FDBD2122E90B001E4A81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E16ADC2125C0C0000A64DF /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		47E16ADE2126B562000A64DF /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				47C9FDAF2122E909001E4A81 /* AppDelegate.swift */,
 				47C9FDB12122E909001E4A81 /* CurrentLocationViewController.swift */,
 				47E16ADC2125C0C0000A64DF /* LocationDetailsViewController.swift */,
+				47E16ADE2126B562000A64DF /* CategoryPickerViewController.swift */,
 				47C9FDB32122E909001E4A81 /* SecondViewController.swift */,
 				47C9FDB52122E909001E4A81 /* Main.storyboard */,
 				47C9FDB82122E90B001E4A81 /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 				47E16ADD2125C0C0000A64DF /* LocationDetailsViewController.swift in Sources */,
 				47C9FDB42122E909001E4A81 /* SecondViewController.swift in Sources */,
 				47C9FDB02122E909001E4A81 /* AppDelegate.swift in Sources */,
+				47E16ADF2126B562000A64DF /* CategoryPickerViewController.swift in Sources */,
 				47C9FDB22122E909001E4A81 /* CurrentLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
