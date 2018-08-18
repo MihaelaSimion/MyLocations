@@ -8,8 +8,10 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController {
+    var managedObjectContext: NSManagedObjectContext!
     
     let locationManager = CLLocationManager()
     var location: CLLocation?
@@ -181,6 +183,7 @@ class CurrentLocationViewController: UIViewController {
             let controller = segue.destination as! LocationDetailsViewController
             controller.coordinate = location!.coordinate
             controller.placemark = placemark
+            controller.managedObjectContext = managedObjectContext
         }
     }
 }

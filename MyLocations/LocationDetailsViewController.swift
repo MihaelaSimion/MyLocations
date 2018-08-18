@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -17,7 +18,7 @@ private let dateFormatter: DateFormatter = {
 }()
 
 class LocationDetailsViewController: UITableViewController {
-    
+    var managedObjectContext: NSManagedObjectContext!
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     var categoryName = "No Category"
