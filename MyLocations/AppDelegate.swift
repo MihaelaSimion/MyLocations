@@ -7,9 +7,22 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    lazy var persistenContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "DataModel")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                fatalError("Could not load data store: \(error)")
+            }
+        })
+        return container
+    } ()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = self.persistenContainer.viewContext
 
     var window: UIWindow?
 
