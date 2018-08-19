@@ -27,7 +27,6 @@ class LocationsViewController: UITableViewController {
         } catch {
             fatalCoreDataError(error)
         }
-
     }
     
     //MARK: - Table View Delegates
@@ -42,5 +41,18 @@ class LocationsViewController: UITableViewController {
         cell.configure(for: location)
        
         return cell
+    }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditLocation" {
+            let controller = segue.destination as! LocationDetailsViewController
+            controller.managedObjectContext = managedObjectContext
+            
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                let location = locations[indexPath.row]
+                controller.locationToEdit = location
+            }
+        }
     }
 }

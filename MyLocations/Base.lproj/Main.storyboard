@@ -129,6 +129,7 @@
                                 <connections>
                                     <outlet property="addressLabel" destination="OzS-de-sSP" id="fJ9-hE-QeM"/>
                                     <outlet property="descriptionLabel" destination="ncm-p7-pTq" id="hPN-2m-0tK"/>
+                                    <segue destination="ezL-LE-Sr3" kind="show" identifier="EditLocation" id="xPP-1e-oco"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -453,4 +454,7 @@
     <resources>
         <image name="first" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xPP-1e-oco"/>
+    </inferredMetricsTieBreakers>
 </document>
