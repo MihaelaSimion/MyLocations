@@ -33,6 +33,7 @@ class LocationsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         performFetch()
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     deinit {
@@ -63,6 +64,18 @@ class LocationsViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let location = fetchedResultsController.object(at: indexPath)
+            managedObjectContext.delete(location)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                fatalCoreDataError(error)
+            }
+        }
+    }
+    
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditLocation" {
@@ -77,7 +90,7 @@ class LocationsViewController: UITableViewController {
     }
 }
 
-// MARK:- NSFetchedResultsController Delegate Extension”
+// MARK:- NSFetchedResultsController Delegate Extension
 extension LocationsViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("*** controllerWillChangeContent")
