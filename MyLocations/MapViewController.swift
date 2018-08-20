@@ -12,11 +12,25 @@ import CoreData
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext: NSManagedObjectContext! {
+        didSet {
+            NotificationCenter.default.addObserver(forName: Notification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext, queue: OperationQueue.main) { (notification) in
+                if self.isViewLoaded {
+                    self.updateLocations()
+                }
+                if let dictionary = notification.userInfo {
+                    print(dictionary["inserted"])
+                    print(dictionary["deleted"])
+                    print(dictionary["updated"])
+                }
+            }
+        }
+    }
     var locations = [Location]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         updateLocations()
         
         if !locations.isEmpty {
@@ -25,7 +39,6 @@ class MapViewController: UIViewController {
     }
     
     //MARK:- Actions
-    
     @IBAction func showUser() {
         let region = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 1000, 1000)
         mapView.setRegion(mapView.regionThatFits(region), animated: true)
@@ -34,6 +47,10 @@ class MapViewController: UIViewController {
     @IBAction func showLocations() {
         let theRegion = region(for: locations)
         mapView.setRegion(theRegion, animated: true)
+    }
+    
+    @objc func showLocationDetails(_ sender: UIButton) {
+        performSegue(withIdentifier: "EditLocation", sender: sender)
     }
     
     //MARK:- Private functions
@@ -56,12 +73,10 @@ class MapViewController: UIViewController {
         case 0:
             region = MKCoordinateRegionMakeWithDistance(
                 mapView.userLocation.coordinate, 1000, 1000)
-            
         case 1:
             let annotation = annotations[annotations.count - 1]
             region = MKCoordinateRegionMakeWithDistance(
                 annotation.coordinate, 1000, 1000)
-            
         default:
             var topLeft = CLLocationCoordinate2D(latitude: -90,
                                                  longitude: 180)
@@ -97,8 +112,54 @@ class MapViewController: UIViewController {
         
         return mapView.regionThatFits(region)
     }
+    
+    //MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditLocation" {
+            let controller = segue.destination as! LocationDetailsViewController
+            controller.managedObjectContext = managedObjectContext
+            
+            let button = sender as! UIButton
+            let location = locations[button.tag]
+            controller.locationToEdit = location
+        }
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is Location else {
+            return nil
+        }
+        
+        let identifier = "Location"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        if annotationView == nil {
+            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            pinView.isEnabled = true
+            pinView.canShowCallout = true
+            pinView.animatesDrop = false
+            pinView.pinTintColor = UIColor(red: 0.32, green: 0.82,
+                                           blue: 0.4, alpha: 1)
+            
+            let rightButton = UIButton(type: .detailDisclosure)
+            rightButton.addTarget(self, action: #selector(showLocationDetails), for: .touchUpInside)
+            pinView.rightCalloutAccessoryView = rightButton
+            
+            annotationView = pinView
+        }
+        
+        if let annotationView = annotationView {
+            annotationView.annotation = annotation
+            let button = annotationView.rightCalloutAccessoryView
+                as! UIButton
+            if let index = locations.index(of: annotation
+                as! Location) {
+                button.tag = index
+            }
+        }
+        
+        return annotationView
+    }
 }
+

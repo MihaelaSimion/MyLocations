@@ -179,11 +179,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="5Gx-NI-ee8" id="5vc-Q2-r0P"/>
+                        <segue destination="ezL-LE-Sr3" kind="show" identifier="EditLocation" id="Gej-an-A87"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1D-lS-gQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308.75" y="1067.9577464788733"/>
+            <point key="canvasLocation" x="1778" y="1126"/>
         </scene>
         <!--Locations-->
         <scene sceneID="nVi-Rh-IAy">
@@ -509,13 +510,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xme-Ml-QMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311.25" y="1067.9577464788733"/>
+            <point key="canvasLocation" x="921" y="1125"/>
         </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xPP-1e-oco"/>
+        <segue reference="Gej-an-A87"/>
     </inferredMetricsTieBreakers>
 </document>
