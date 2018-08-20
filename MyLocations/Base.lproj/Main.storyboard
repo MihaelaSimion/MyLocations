@@ -144,6 +144,47 @@
             </objects>
             <point key="canvasLocation" x="1580.625" y="355.98591549295776"/>
         </scene>
+        <!--Map-->
+        <scene sceneID="P0Q-fv-anC">
+            <objects>
+                <viewController id="Dx4-Ga-PHG" customClass="MapViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WqR-ss-L73">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Gx-NI-ee8">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5Gx-NI-ee8" firstAttribute="top" secondItem="DeC-Xw-uch" secondAttribute="top" id="Dgf-Mh-RPL"/>
+                            <constraint firstItem="5Gx-NI-ee8" firstAttribute="leading" secondItem="DeC-Xw-uch" secondAttribute="leading" id="NTh-Aw-1gT"/>
+                            <constraint firstItem="DeC-Xw-uch" firstAttribute="trailing" secondItem="5Gx-NI-ee8" secondAttribute="trailing" id="bQ1-rq-kL7"/>
+                            <constraint firstItem="DeC-Xw-uch" firstAttribute="bottom" secondItem="5Gx-NI-ee8" secondAttribute="bottom" id="rlZ-Nc-rUF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DeC-Xw-uch"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map" id="ofd-SP-qOW">
+                        <barButtonItem key="leftBarButtonItem" title="Locations" id="DYn-KE-zOG">
+                            <connections>
+                                <action selector="showLocations" destination="Dx4-Ga-PHG" id="CUY-qY-m3w"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="User" id="pD6-el-YpY">
+                            <connections>
+                                <action selector="showUser" destination="Dx4-Ga-PHG" id="Lj9-qt-V9a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="5Gx-NI-ee8" id="5vc-Q2-r0P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1D-lS-gQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1308.75" y="1067.9577464788733"/>
+        </scene>
         <!--Locations-->
         <scene sceneID="nVi-Rh-IAy">
             <objects>
@@ -425,6 +466,7 @@
                     <connections>
                         <segue destination="Ztv-bn-Tdk" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="Z8O-7i-Ssp" kind="relationship" relationship="viewControllers" id="Pew-BS-Dd5"/>
+                        <segue destination="KkZ-Hp-Z8U" kind="relationship" relationship="viewControllers" id="WhB-OE-DWb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -449,6 +491,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv9-K9-NAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320.07042253521126"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="0DG-pJ-2G3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KkZ-Hp-Z8U" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="2ww-h5-2JF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w6g-5V-8Ce">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Dx4-Ga-PHG" kind="relationship" relationship="rootViewController" id="cNB-dW-a6M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xme-Ml-QMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="311.25" y="1067.9577464788733"/>
         </scene>
     </scenes>
     <resources>
