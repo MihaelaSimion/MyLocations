@@ -37,6 +37,7 @@ class LocationDetailsViewController: UITableViewController {
     }
     var descriptionText = ""
     var image: UIImage?
+    var observer: Any!
     
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -49,6 +50,7 @@ class LocationDetailsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listenForBackgroundNotification()
         if let location = locationToEdit {
             title = "Edit Location"
         }
@@ -151,6 +153,17 @@ class LocationDetailsViewController: UITableViewController {
         addPhotoLabel.isHidden = true
     }
     
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidEnterBackground, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            if let weakSelf = self {
+                if weakSelf.presentedViewController != nil {
+                    weakSelf.dismiss(animated: false, completion: nil)
+                }
+                weakSelf.descriptionTextView.resignFirstResponder()
+            }
+        }
+    }
+    
     //MARK: Table View Delegates
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
@@ -201,6 +214,12 @@ class LocationDetailsViewController: UITableViewController {
         let controller = segue.source as! CategoryPickerViewController
         categoryName = controller.selectedCategoryName
         categoryLabel.text = categoryName
+    }
+    
+    //MARK: Deinit
+    deinit {
+        print("*** deinit\(self)")
+        NotificationCenter.default.removeObserver(observer)
     }
 }
 
