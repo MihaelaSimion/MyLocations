@@ -153,9 +153,12 @@ class LocationDetailsViewController: UITableViewController {
     
     //MARK: Table View Delegates
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
             return 88
-        } else if indexPath.section == 2 && indexPath.row == 2 {
+        case (1, _):
+            return imageView.isHidden ? 44 : 280
+        case (2, 2):
             addressLabel.frame.size = CGSize(
                 width: view.bounds.size.width - 120,
                 height: 10000)
@@ -163,7 +166,7 @@ class LocationDetailsViewController: UITableViewController {
             addressLabel.frame.origin.x = view.bounds.size.width -
                 addressLabel.frame.size.width - 16
             return addressLabel.frame.size.height + 20
-        } else {
+        default:
             return 44
         }
     }
@@ -253,6 +256,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
             show(image: theImage)
         }
         
+        tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }
     
