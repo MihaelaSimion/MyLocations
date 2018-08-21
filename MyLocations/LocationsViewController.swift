@@ -35,6 +35,15 @@ class LocationsViewController: UITableViewController {
         super.viewDidLoad()
         performFetch()
         navigationItem.rightBarButtonItem = editButtonItem
+        updateRightBarButton()
+    }
+    
+    func updateRightBarButton(){
+        if let sections = fetchedResultsController.sections, sections.count > 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
     }
     
     deinit {
@@ -52,6 +61,7 @@ class LocationsViewController: UITableViewController {
     
     //MARK: - Table View Delegates
     override func numberOfSections(in tableView: UITableView) -> Int {
+        updateRightBarButton()
         return fetchedResultsController.sections!.count
     }
     

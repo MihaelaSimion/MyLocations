@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Add photos to your locations</string>
+	<string>Add photos to your locations from library</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Add photos to your locations</string>
+	<string>Add photos to your locations from camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app lets you keep track of interesting places. It needs access to the GPS coordinates for your location.</string>
 	<key>CFBundleDevelopmentRegion</key>
