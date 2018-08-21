@@ -49,6 +49,5 @@ public class Location: NSManagedObject, MKAnnotation {
         userDefaults.set(currentID, forKey: "PhotoID")
         userDefaults.synchronize()
         return currentID
-        
     }
 }
