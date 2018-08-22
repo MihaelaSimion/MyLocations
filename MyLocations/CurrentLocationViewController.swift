@@ -22,6 +22,17 @@ class CurrentLocationViewController: UIViewController {
     var performingReverseGeocoding = false
     var lastGeocodingError: Error?
     var timer: Timer?
+    var logoVisible = false
+    
+    lazy var logoButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(named: "Logo"), for: .normal)
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(getLocation), for: .touchUpInside)
+        button.center.x = self.view.bounds.midX
+        button.center.y = 220
+        return button
+    }()
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
@@ -29,9 +40,16 @@ class CurrentLocationViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var getButton: UIButton!
+    @IBOutlet weak var latitudeTextLabel: UILabel!
+    @IBOutlet weak var longitudeTextLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     @IBAction func getLocation() {
         let authStatus = CLLocationManager.authorizationStatus()
+        if logoVisible {
+            hideLogoView()
+        }
+        
         if authStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
             return
@@ -75,10 +93,26 @@ class CurrentLocationViewController: UIViewController {
     }
     
     func configureGetButton() {
+        let spinnerTag = 1000
+        
         if updatingLocation {
             getButton.setTitle("Stop", for: .normal)
+            
+            if view.viewWithTag(spinnerTag) == nil {
+                let spinner = UIActivityIndicatorView(
+                    activityIndicatorStyle: .white)
+                spinner.center = messageLabel.center
+                spinner.center.y += spinner.bounds.size.height/2 + 15
+                spinner.startAnimating()
+                spinner.tag = spinnerTag
+                containerView.addSubview(spinner)
+            }
         } else {
             getButton.setTitle("Get My Location", for: .normal)
+            
+            if let spinner = view.viewWithTag(spinnerTag) {
+                spinner.removeFromSuperview()
+            }
         }
     }
     
@@ -99,6 +133,9 @@ class CurrentLocationViewController: UIViewController {
             } else {
                 addressLabel.text = "No address found!"
             }
+            
+            latitudeTextLabel.isHidden = false
+            longitudeTextLabel.isHidden = false
         } else {
             latitudeLabel.text = ""
             longituteLabel.text = ""
@@ -116,9 +153,13 @@ class CurrentLocationViewController: UIViewController {
             } else if updatingLocation {
                 statusMessage = "Searching..."
             } else {
-                statusMessage = "Tap 'Get My Location' to Start"
+                statusMessage = ""
+                showLogoView()
             }
             messageLabel.text = statusMessage
+            
+            latitudeTextLabel.isHidden = true
+            longitudeTextLabel.isHidden = true
         }
         configureGetButton()
     }
@@ -135,7 +176,6 @@ class CurrentLocationViewController: UIViewController {
         
         line1.add(text: line2, separatedBy: "\n")
         return line1
-        
     }
     
     func startLocationManager() {
@@ -166,6 +206,20 @@ class CurrentLocationViewController: UIViewController {
             lastLocationError = NSError(domain: "MyLocationErrorDomanin", code: 1, userInfo: nil)
             updateLabels()
         }
+    }
+    
+    func showLogoView() {
+        if !logoVisible {
+            logoVisible = true
+            containerView.isHidden = true
+            view.addSubview(logoButton)
+        }
+    }
+    
+    func hideLogoView() {
+        logoVisible = false
+        containerView.isHidden = false
+        logoButton.removeFromSuperview()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -242,4 +296,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
         }
     }
 }
+
+
 
