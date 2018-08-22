@@ -175,12 +175,12 @@
                         <viewLayoutGuide key="safeArea" id="DeC-Xw-uch"/>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="ofd-SP-qOW">
-                        <barButtonItem key="leftBarButtonItem" title="Locations" id="DYn-KE-zOG">
+                        <barButtonItem key="leftBarButtonItem" title="Locations" image="Pin" id="DYn-KE-zOG">
                             <connections>
                                 <action selector="showLocations" destination="Dx4-Ga-PHG" id="CUY-qY-m3w"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="User" id="pD6-el-YpY">
+                        <barButtonItem key="rightBarButtonItem" title="User" image="User" id="pD6-el-YpY">
                             <connections>
                                 <action selector="showUser" destination="Dx4-Ga-PHG" id="Lj9-qt-V9a"/>
                             </connections>
@@ -531,10 +531,12 @@
     <resources>
         <image name="Locations" width="30" height="30"/>
         <image name="Map" width="30" height="30"/>
+        <image name="Pin" width="24" height="24"/>
         <image name="Tag" width="30" height="30"/>
+        <image name="User" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b9z-ez-PWo"/>
+        <segue reference="Gej-an-A87"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.93333333333333335" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
